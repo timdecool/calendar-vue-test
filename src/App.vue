@@ -5,12 +5,23 @@ import interactionPlugin from '@fullcalendar/interaction'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import frLocale from '@fullcalendar/core/locales/fr'
 
+import axios from 'axios'
+import SearchBar from '@/components/SearchBar.vue'
 import { ref } from 'vue'
+
+const posts = ref([])
+// axios.get('http://127.0.0.1:8002/api/posts')
+//   .then(function (response) {
+//     console.log(response.data["hydra:member"])
+//   })
+//   .catch(function(error) {
+//     console.log(error)
+//   })
 
 const availView = ref(false)
 
 const calendarOptions = ref({
-  plugins: [ dayGridPlugin, timeGridPlugin, interactionPlugin],
+  plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
   initialView: 'timeGridWeek',
   titleFormat: {
     year: 'numeric',
@@ -250,12 +261,22 @@ function getWeekStart() {
 </script>
 
 <template>
-  <section id="calendar-view">
-      <full-calendar ref="calendar" :options="calendarOptions"/>
-  </section>
+  <div class="flex">
+      <section id="calendar-view">
+          <full-calendar ref="calendar" :options="calendarOptions"/>
+      </section>
+      <section>
+        <search-bar />
+      </section>
+  </div>
 </template>
 
 <style scoped>
+
+.flex {
+  display: flex;
+}
+
 #calendar-view {
   padding: 20px;
   box-sizing: border-box;
